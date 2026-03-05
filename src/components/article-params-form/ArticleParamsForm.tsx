@@ -16,8 +16,6 @@ import { RadioGroup } from 'src/ui/radio-group';
 import { Select } from 'src/ui/select';
 import { Separator } from 'src/ui/separator';
 
-import clsx from 'clsx';
-
 import styles from './ArticleParamsForm.module.scss';
 
 type ArticleParamsFormProps = {
@@ -29,23 +27,23 @@ type ArticleParamsFormProps = {
 
 export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 	const { values, onChange, onApply, onReset } = props;
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const rootRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		if (!isOpen) return;
+		if (!isMenuOpen) return;
 
 		const handleOutsideClick = (event: MouseEvent) => {
 			const target = event.target as Node;
 			if (rootRef.current && !rootRef.current.contains(target)) {
-				setIsOpen(false);
+				setIsMenuOpen(false);
 			}
 		};
 
 		document.addEventListener('mousedown', handleOutsideClick);
 		return () => document.removeEventListener('mousedown', handleOutsideClick);
-	}, [isOpen]);
+	}, [isMenuOpen]);
 
 	const handleSubmit = (event: FormEvent) => {
 		event.preventDefault();
@@ -59,10 +57,17 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 
 	return (
 		<div ref={rootRef}>
-			<ArrowButton isOpen={isOpen} onClick={() => setIsOpen((v) => !v)} />
+			<ArrowButton
+				isOpen={isMenuOpen}
+				onClick={() => setIsMenuOpen((v) => !v)}
+			/>
 			<aside
-				className={clsx(styles.container, { [styles.container_open]: isOpen })}>
+				className={`${styles.container} ${
+					isMenuOpen ? styles.container_open : ''
+				}`}
+			>
 				<form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
+					<h2 className={styles.title}>ЗАДАЙТЕ ПАРАМЕТРЫ</h2>
 					<Select
 						title='ШРИФТ'
 						selected={values.fontFamilyOption}
@@ -100,11 +105,10 @@ export const ArticleParamsForm = (props: ArticleParamsFormProps) => {
 						}
 					/>
 
-					<RadioGroup
-						name='content-width'
+					<Select
 						title='ШИРИНА КОНТЕНТА'
-						options={contentWidthArr}
 						selected={values.contentWidth}
+						options={contentWidthArr}
 						onChange={(selected) =>
 							onChange({ ...values, contentWidth: selected })
 						}
