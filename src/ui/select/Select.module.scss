@@ -66,7 +66,9 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	height: 30px;
+	box-sizing: border-box;
+	/* Keep option height consistent with the closed select placeholder */
+	height: 50px;
 	padding: 15px 17px;
 	background-color: rgb(255 255 255 / 100%);
 	border: 1px;
@@ -83,40 +85,32 @@
 
 @mixin option-color-before {
 	content: '';
-	width: 35px;
-	height: 35px;
+	width: 25px;
+	height: 25px;
 	margin-right: 10px;
+	box-sizing: border-box;
+	border: 1px solid #000000;
+	background-repeat: no-repeat;
+	background-position: center;
 }
+
 
 .option-black::before {
 	@include option-color-before;
 	background-color: #000000;
 }
 
-@mixin option-color-after {
-	content: '';
-	position: absolute;
-	left: 26px;
-	width: 17px;
-	height: 17px;
-	border-radius: 100%;
-}
-
-.option-black[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-black[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-white::before {
 	@include option-color-before;
-	box-sizing: border-box;
 	background-color: #ffffff;
-	border: 1px solid #000000;
 }
 
-.option-white[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #000000;
+.option-white[data-selected='true']::before {
+	background-image: radial-gradient(circle, #000000 0 5px, transparent 6px);
 }
 
 .option-gray::before {
@@ -124,9 +118,8 @@
 	background-color: #c4c4c4;
 }
 
-.option-gray[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-gray[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-pink::before {
@@ -134,9 +127,8 @@
 	background-color: #feafe8;
 }
 
-.option-pink[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-pink[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-fuchsia::before {
@@ -144,9 +136,8 @@
 	background-color: #fd24af;
 }
 
-.option-fuchsia[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-fuchsia[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-yellow::before {
@@ -154,9 +145,8 @@
 	background-color: #ffc802;
 }
 
-.option-yellow[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-yellow[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-green::before {
@@ -164,9 +154,8 @@
 	background-color: #80d994;
 }
 
-.option-green[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-green[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-blue::before {
@@ -174,9 +163,8 @@
 	background-color: #6fc1fd;
 }
 
-.option-blue[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-blue[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 .option-purple::before {
@@ -184,9 +172,8 @@
 	background-color: #5f0dee;
 }
 
-.option-purple[data-selected='true']::after {
-	@include option-color-after;
-	background-color: #ffffff;
+.option-purple[data-selected='true']::before {
+	background-image: radial-gradient(circle, #ffffff 0 5px, transparent 6px);
 }
 
 @mixin option-width-before {
